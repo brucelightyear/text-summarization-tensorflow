@@ -9,7 +9,7 @@ from utils import build_dict, build_dataset, batch_iter
 
 # Uncomment next 2 lines to suppress error and Tensorflow info verbosity. Or change logging levels
 # tf.logging.set_verbosity(tf.logging.FATAL)
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 def add_arguments(parser):
     parser.add_argument("--num_hidden", type=int, default=150, help="Network size.")
@@ -49,7 +49,7 @@ print("Loading training dataset...")
 train_x, train_y = build_dataset("train", word_dict, article_max_len, summary_max_len, args.toy)
 
 
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
     model = Model(reversed_dict, article_max_len, summary_max_len, args)
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver(tf.global_variables())

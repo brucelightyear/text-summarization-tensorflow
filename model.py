@@ -1,5 +1,6 @@
 import tensorflow as tf
-from tensorflow.contrib import rnn
+#from tensorflow.contrib import rnn
+#from tensorflow.nn import rnn
 from utils import get_init_embedding
 
 

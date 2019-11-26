@@ -1,31 +1,40 @@
 # tensorflow-text-summarization
+
 Simple Tensorflow implementation of text summarization using [seq2seq library](https://www.tensorflow.org/api_guides/python/contrib.seq2seq).
 
-
 ## Model
+
 Encoder-Decoder model with attention mechanism.
 
 ### Word Embedding
+
 Used [Glove pre-trained vectors](https://nlp.stanford.edu/projects/glove/) to initialize word embedding.
 
 ### Encoder
+
 Used LSTM cell with [stack_bidirectional_dynamic_rnn](https://www.tensorflow.org/api_docs/python/tf/contrib/rnn/stack_bidirectional_dynamic_rnn).
 
 ### Decoder
+
 Used LSTM [BasicDecoder](https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BasicDecoder) for training, and [BeamSearchDecoder](https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BeamSearchDecoder) for inference.
 
 ### Attention Mechanism
+
 Used [BahdanauAttention](https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention) with weight normalization.
 
 
 ## Requirements
+
 - Python 3
-- Tensorflow (>=1.8.0)
+- Tensorflow (>=2.0.0)
 - pip install -r requirements.txt
 
+### Tensorflow 2.0 upgrade with [tf2up.ml](http://tf2up.ml/)
 
 ## Usage
+
 ### Prepare data
+
 Dataset is available at [harvardnlp/sent-summary](https://github.com/harvardnlp/sent-summary). Locate the summary.tar.gz file in project root directory. Then,
 ```
 $ python prep_data.py
@@ -36,6 +45,7 @@ $ python prep_data.py --glove
 ```
 
 ### Train
+
 We used ```sumdata/train/train.article.txt``` and ```sumdata/train/train.title.txt``` for training data. To train the model, use
 ```
 $ python train.py
@@ -46,6 +56,7 @@ $ python train.py --glove
 ```
 
 #### Additional Hyperparamters
+
 ```
 $ python train.py -h
 usage: train.py [-h] [--num_hidden NUM_HIDDEN] [--num_layers NUM_LAYERS]
@@ -77,15 +88,16 @@ optional arguments:
 
 ```
 
-
 ### Test
+
 Generate summary of each article in ```sumdata/train/valid.article.filter.txt``` by
 ```
-$ python test.py
+python test.py
 ```
 It will generate result summary file ```result.txt```. Check out ROUGE metrics between ```result.txt``` and ```sumdata/train/valid.title.filter.txt``` using [pltrdy/files2rouge](https://github.com/pltrdy/files2rouge).
 
 #### Sample Summary Output
+
 ```
 "general motors corp. said wednesday its us sales fell ##.# percent in december and four percent in #### with the biggest losses coming from passenger car sales ."
 > Model output: gm us sales down # percent in december
@@ -113,6 +125,7 @@ It will generate result summary file ```result.txt```. Check out ROUGE metrics b
 ```
 
 ## Pre-trained Model
+
 To test with pre-trained model, download [pre_trained.zip](https://drive.google.com/file/d/1V8pS1eoiv51wfiVp2rOB7IvJ5PeQs2n-/view?usp=sharing), and locate it in the project root directory. Then,
 ```
 $ unzip pre_trained.zip

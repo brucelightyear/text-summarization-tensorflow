@@ -13,10 +13,10 @@ print("Loading validation dataset...")
 valid_x = build_dataset("valid", word_dict, article_max_len, summary_max_len, args.toy)
 valid_x_len = [len([y for y in x if y != 0]) for x in valid_x]
 
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
     print("Loading saved model...")
     model = Model(reversed_dict, article_max_len, summary_max_len, args, forward_only=True)
-    saver = tf.train.Saver(tf.global_variables())
+    saver = tf.compat.v1.train.Saver(tf.compat.v1.global_variables())
     ckpt = tf.train.get_checkpoint_state("./saved_model/")
     saver.restore(sess, ckpt.model_checkpoint_path)
 
